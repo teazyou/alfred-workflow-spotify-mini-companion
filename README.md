@@ -1,0 +1,1 @@
+# alfred-workflow-spotify-mini-companion
