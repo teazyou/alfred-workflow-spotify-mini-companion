@@ -55,7 +55,15 @@ try {
     // 6. Loop-remove from all other owned playlists.
     $result = $nuker->removeFromAll($api, $others, $trackUri);
 
-    // 7. Notify.
+    // 7. Skip to the next track. Failures here (no active device, queue
+    //    exhausted, etc.) are not worth surfacing — the nuke succeeded.
+    try {
+        $api->next();
+    } catch (\Throwable $e) {
+        // swallow
+    }
+
+    // 8. Notify.
     $body = buildResultMessage($nuked['wasCreated'], $addedFresh, $result);
     notify($body, $trackName);
 } catch (NoTrackPlaying $e) {
