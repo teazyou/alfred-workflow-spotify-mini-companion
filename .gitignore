@@ -1,0 +1,37 @@
+# Composer build artifacts
+/vendor/
+
+# Build outputs
+/dist/
+*.alfredworkflow
+
+# Environment & local config
+.env
+.env.*
+!.env.example
+
+# Databases / dumps — must never be committed (could contain user data)
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+
+# macOS
+.DS_Store
+
+# Alfred workflow per-install state — would leak UUIDs / config
+prefs.plist
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache
+
+# IDE
+.idea/
+.vscode/
+
+# Local notes
+*.local
+scratch/
