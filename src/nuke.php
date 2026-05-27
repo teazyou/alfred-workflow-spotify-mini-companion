@@ -42,30 +42,24 @@ try {
     $nuked = $nuker->findOrCreateNukedPlaylist($api, $db, $bridge->readUserId());
     $others = $nuker->getOtherOwnedPlaylists($db, $nuked['uri']);
 
-    // 5. Add to Nuked. We tolerate "already in Nuked" — Spotify just appends
-    //    (or no-ops, depending on dedup). We still report success.
-    $addedFresh = true;
+    // 5. Add to Nuked. Tolerate "already in Nuked" failures — still proceed.
     try {
         $nuker->addTrackToNuked($api, $nuked['id'], $trackUri);
-    } catch (\Throwable $e) {
-        // If add fails we still attempt the removals. Surface in subtitle.
-        $addedFresh = false;
-    }
-
-    // 6. Loop-remove from all other owned playlists.
-    $result = $nuker->removeFromAll($api, $others, $trackUri);
-
-    // 7. Skip to the next track. Failures here (no active device, queue
-    //    exhausted, etc.) are not worth surfacing — the nuke succeeded.
-    try {
-        $api->next();
     } catch (\Throwable $e) {
         // swallow
     }
 
-    // 8. Notify.
-    $body = buildResultMessage($nuked['wasCreated'], $addedFresh, $result);
-    notify($body, $trackName);
+    // 6. Loop-remove from all other owned playlists.
+    $nuker->removeFromAll($api, $others, $trackUri);
+
+    // 7. Skip to the next track — this is the user's success signal.
+    //    If next() fails (e.g. no active device), surface that explicitly
+    //    so silence reliably means success.
+    try {
+        $api->next();
+    } catch (\Throwable $e) {
+        notify('Nuked — but skip failed. Start playback on a device first.');
+    }
 } catch (NoTrackPlaying $e) {
     notify('No track currently playing.');
 } catch (MiniPlayerNotInstalled $e) {
@@ -118,44 +112,6 @@ function currentlyPlaying(SpotifyWebAPI $api): array
     }
 
     return [$uri, $name === '' ? 'current track' : $name];
-}
-
-/**
- * @param array{removed:int,attempted:int,errors:list<array{name:string,error:string}>} $result
- */
-function buildResultMessage(bool $created, bool $addedFresh, array $result): string
-{
-    $parts = [];
-
-    if ($created) {
-        $parts[] = 'Created Nuked playlist';
-    }
-
-    if ($addedFresh) {
-        $parts[] = 'added to Nuked';
-    } else {
-        $parts[] = 'Nuked add failed';
-    }
-
-    if ($result['attempted'] === 0) {
-        $parts[] = 'no other owned playlists';
-    } elseif (count($result['errors']) === 0) {
-        $parts[] = sprintf(
-            'removed from %d %s',
-            $result['removed'],
-            $result['removed'] === 1 ? 'playlist' : 'playlists'
-        );
-    } else {
-        $parts[] = sprintf(
-            'removed from %d of %d (errors: %d)',
-            $result['removed'],
-            $result['attempted'],
-            count($result['errors'])
-        );
-    }
-
-    $msg = ucfirst(implode(', ', $parts)) . '.';
-    return $msg;
 }
 
 /**
