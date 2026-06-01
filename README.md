@@ -1,6 +1,6 @@
 # spnuke — Alfred Workflow Spotify Mini Player Companion
 
-A small Alfred workflow that adds one keyword — **`spnuke`** — which takes
+A small Alfred workflow that adds one keyword — **`nuke`** — which takes
 the currently-playing Spotify track, ensures a playlist named **Nuked**
 exists, adds the track to it, and removes the track from every *other*
 playlist you own. Your Liked Songs library is untouched.
@@ -29,7 +29,7 @@ credentials, so you do not have to set up Spotify again.
 1. Download the latest `spnuke.alfredworkflow` from the
    [Releases](../../releases) page (or build it yourself, see below).
 2. Double-click it. Alfred installs the workflow.
-3. Trigger it: open Alfred, type `spnuke`, hit Enter while Spotify is
+3. Trigger it: open Alfred, type `nuke`, hit Enter while Spotify is
    playing a track.
 
 You'll see a macOS notification with the result — for example
@@ -80,7 +80,7 @@ cache.
 
 **"Auth failed — re-authorize Spotify Mini Player."**
 Your refresh token is no longer valid. Open the mini player (type `sp` in
-Alfred), go through its `reset` / re-authorize flow, then try `spnuke`
+Alfred), go through its `reset` / re-authorize flow, then try `nuke`
 again.
 
 **"No track currently playing."**

@@ -17,7 +17,7 @@
 
 Requires: macOS, Alfred Powerpack, Spotify Mini Player installed &amp; authenticated, PHP 8.1+ on PATH (e.g. `brew install php`).
 
-Trigger: type `spnuke` in Alfred while Spotify is playing.</string>
+Trigger: type `nuke` in Alfred while Spotify is playing.</string>
 	<key>webaddress</key>
 	<string>https://github.com/teazyou/alfred-workflow-spotify-mini-companion</string>
 	<key>version</key>
@@ -49,7 +49,7 @@ Trigger: type `spnuke` in Alfred while Spotify is playing.</string>
 				<key>argumenttype</key>
 				<integer>2</integer>
 				<key>keyword</key>
-				<string>spnuke</string>
+				<string>nuke</string>
 				<key>subtext</key>
 				<string>Move current track to "Nuked" and remove from all other owned playlists.</string>
 				<key>text</key>

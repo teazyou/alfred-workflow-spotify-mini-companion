@@ -23,7 +23,7 @@ the action, and the expected outcome.
 
 - [ ] Verify in Spotify that no playlist named "Nuked" exists.
 - [ ] Pick a single track and play it in Spotify.
-- [ ] In Alfred, type `spnuke` and hit Enter.
+- [ ] In Alfred, type `nuke` and hit Enter.
 
 Expected:
 
@@ -36,7 +36,7 @@ Expected:
 
 - [ ] Confirm "Nuked" exists from scenario A.
 - [ ] Play a different track.
-- [ ] In Alfred, `spnuke` + Enter.
+- [ ] In Alfred, `nuke` + Enter.
 
 Expected:
 
@@ -47,7 +47,7 @@ Expected:
 
 - [ ] Pick a track, manually add it to (say) 3 of your owned playlists.
 - [ ] Play that track.
-- [ ] In Alfred, `spnuke` + Enter.
+- [ ] In Alfred, `nuke` + Enter.
 
 Expected:
 
@@ -67,7 +67,7 @@ Then manually verify in Spotify:
 
 - [ ] In Spotify, like the currently-playing track if it isn't liked yet.
 - [ ] Note the total count under "Liked Songs" (web/desktop sidebar).
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 - [ ] Re-check the Liked Songs total.
 
 Expected:
@@ -78,7 +78,7 @@ Expected:
 ## E. Spotify paused / nothing playing
 
 - [ ] Stop playback (close Spotify, or hit pause and wait a few minutes).
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 
 Expected:
 
@@ -88,7 +88,7 @@ Expected:
 ## F. Spotify playing a podcast episode
 
 - [ ] Play any podcast episode.
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 
 Expected:
 
@@ -101,7 +101,7 @@ Expected:
 - [ ] Open `https://www.spotify.com/account/apps/` and revoke access for
       your mini-player Spotify app, OR temporarily corrupt the
       `__oauth_refresh_token` value in Alfred's mini player config.
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 
 Expected:
 
@@ -116,7 +116,7 @@ flow via `sp` → reset).
 - [ ] Temporarily move
       `~/Library/Application Support/Alfred/Workflow Data/com.vdesabou.spotify.mini.player`
       to a backup location.
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 
 Expected:
 
@@ -128,7 +128,7 @@ Expected:
 - [ ] (Hard to test without uninstalling PHP.) Temporarily edit the
       workflow's Run Script node to use an invalid PHP path, e.g.
       `/nonexistent/php`.
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 
 Expected:
 
@@ -142,7 +142,7 @@ Expected:
       duplicate.
 - [ ] Wait for the mini player to refresh its library (or trigger a
       refresh via its own UI), so `library.db` knows about both.
-- [ ] Run `spnuke`.
+- [ ] Run `nuke`.
 
 Expected:
 
